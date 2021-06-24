@@ -25,6 +25,8 @@ resource "tls_self_signed_cert" "ca" {
     organization = var.organization_name
   }
 
+  dns_names = ["clouddrove.com"]
+
   validity_period_hours = 87600
   is_ca_certificate     = true
 
@@ -54,6 +56,8 @@ resource "tls_cert_request" "root" {
     common_name  = format("%s-client",module.labels.id)
     organization = var.organization_name
   }
+
+  dns_names = ["clouddrove.com"]
 }
 
 resource "tls_locally_signed_cert" "root" {
@@ -93,6 +97,8 @@ resource "tls_cert_request" "server" {
     common_name  = format("%s-server",module.labels.id)
     organization = var.organization_name
   }
+
+  dns_names = ["clouddrove.com"]
 }
 
 resource "tls_locally_signed_cert" "server" {

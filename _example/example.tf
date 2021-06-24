@@ -13,7 +13,7 @@ module "vpc" {
   environment = "example"
   label_order = ["name", "environment"]
 
-  cidr_block    = "10.10.0.0/16"
+  cidr_block    = "10.0.0.0/16"
 }
 
 
@@ -42,7 +42,7 @@ module "vpn" {
   enabled = false
   environment = "example"
   label_order = ["name", "environment"]
-  cidr_block = "10.10.0.0/16"
+  cidr_block = "172.0.0.0/16"
   subnet_ids = []
   route_cidr = []
   route_subnet_ids = []
