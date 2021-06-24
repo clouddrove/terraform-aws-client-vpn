@@ -17,28 +17,41 @@ The following resources will be created:
 | Name | Version |
 |------|---------|
 | terraform | >= 0.12.0 |
+| aws | >= 3.1.15 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | n/a |
+| aws | >= 3.1.15 |
 | tls | n/a |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| cidr | Network CIDR to use for clients | `any` | n/a | yes |
+| attributes | Additional attributes (e.g. `1`). | `list(any)` | `[]` | no |
+| cidr\_block | Client VPN CIDR | `string` | `""` | no |
+| delimiter | Delimiter to be used between `organization`, `environment`, `name` and `attributes`. | `string` | `"-"` | no |
+| enabled | Client VPN Name | `bool` | `true` | no |
+| environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
+| label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
 | logs\_retention | Retention in days for CloudWatch Log Group | `number` | `365` | no |
-| name | Name prefix for the resources of this stack | `any` | n/a | yes |
-| organization\_name | Name of organization to use in private certificate | `string` | `"ACME, Inc"` | no |
-| subnet\_ids | Subnet ID to associate clients | `list(string)` | n/a | yes |
-| tags | Extra tags to attach to resources | `map` | `{}` | no |
+| managedby | ManagedBy, eg 'CloudDrove'. | `string` | `"hello@clouddrove.com"` | no |
+| name | Client VPN Name | `string` | `""` | no |
+| network\_cidr | Client Network CIDR | `list` | `[]` | no |
+| organization\_name | Name of organization to use in private certificate | `string` | `"clouddrove.com"` | no |
+| repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-client-vpn"` | no |
+| route\_cidr | Client Route CIDR | `list` | `[]` | no |
+| route\_subnet\_ids | Client Route Subnet Ids | `list` | `[]` | no |
+| subnet\_ids | Subnet ID to associate clients | `list(string)` | `[]` | no |
 
 ## Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| cert | A mapping of tags to assign to the certificate. |
+| key | A mapping of tags to assign to the key. |
 
 <!--- END_TF_DOCS --->
 
