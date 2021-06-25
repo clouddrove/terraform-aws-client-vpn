@@ -14,12 +14,6 @@ variable "repository" {
   type        = string
   default     = "https://github.com/clouddrove/terraform-aws-client-vpn"
   description = "Terraform current module repo"
-
-  validation {
-    # regex(...) fails if it cannot find a match
-    condition     = can(regex("^https://", var.repository))
-    error_message = "The module-repo value must be a valid Git repo link."
-  }
 }
 
 variable "environment" {
@@ -77,19 +71,19 @@ variable "logs_retention" {
 }
 
 variable "route_cidr" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Client Route CIDR"
 }
 
 variable "route_subnet_ids" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Client Route Subnet Ids"
 }
 
 variable "network_cidr" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Client Network CIDR"
 }
