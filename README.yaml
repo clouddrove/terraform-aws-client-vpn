@@ -1,0 +1,53 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+
+# Name of this project
+name: Terraform AWS Client VPN
+
+# License of this project
+license: "MIT"
+
+# Canonical GitHub repo
+github_repo: clouddrove/terraform-aws-client-vpn
+
+# Badges to display
+badges:
+  - name: "Terraform"
+    image: "https://img.shields.io/badge/Terraform-v0.15-green"
+    url: "https://www.terraform.io"
+  - name: "Licence"
+    image: "https://img.shields.io/badge/License-MIT-blue.svg"
+    url: "LICENSE.md"
+
+#  description of this project
+description: |-
+  Terraform module to create Client VPN resource on AWS.
+
+# extra content
+include:
+  - "terraform.md"
+
+# How to use this project
+# yamllint disable rule:line-length
+usage: |-
+  ### Simple Example
+  Here is an example of how you can use this module in your inventory structure:
+    ```hcl
+    module "vpn" {
+        source           = "clouddrove/client-vpn/aws"
+        version          = "0.15.0"
+        name             = "test-vpn"
+        enabled          = true
+        environment      = "example"
+        label_order      = ["name", "environment"]
+        cidr_block       = "172.0.0.0/16"
+        subnet_ids       = module.subnets.public_subnet_id
+        route_cidr       = ["0.0.0.0/0"]
+        route_subnet_ids = ["subnet-xxxxxxxxxxx"]
+        network_cidr     = ["0.0.0.0/0"]
+      }
+    ```

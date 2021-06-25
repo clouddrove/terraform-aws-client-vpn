@@ -1,12 +1,7 @@
+# ignored files
 *.tfstate
-*.tfstate.*
-**/*.pem
-**/.terraform
-**/terraform.tfstate
-**/terraform.tfstate.backup
+*.tfstate.backup
+.terraform
 .idea
 *.iml
-
-.build-harness
-build-harness
-/_example/.terraform.lock.hcl
+*.terraform.lock.hcl
