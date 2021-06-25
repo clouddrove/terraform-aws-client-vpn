@@ -77,19 +77,19 @@ variable "logs_retention" {
 }
 
 variable "route_cidr" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Client Route CIDR"
 }
 
 variable "route_subnet_ids" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Client Route Subnet Ids"
 }
 
 variable "network_cidr" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "Client Network CIDR"
 }
