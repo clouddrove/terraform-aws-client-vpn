@@ -39,12 +39,13 @@ module "vpn" {
   source = "../"
 
   name = "test-vpn"
-  enabled = false
+  enabled = true
   environment = "example"
   label_order = ["name", "environment"]
   cidr_block = "172.0.0.0/16"
-  subnet_ids = []
-  route_cidr = []
-  route_subnet_ids = []
-  network_cidr = []
+  subnet_ids = module.subnets.public_subnet_id
+  route_cidr = ["0.0.0.0/0"]
+  route_subnet_ids = module.subnets.public_subnet_id
+  network_cidr = ["0.0.0.0/0"]
+  
 }
