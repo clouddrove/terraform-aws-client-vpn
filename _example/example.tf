@@ -44,7 +44,7 @@ module "vpn" {
   label_order      = ["name", "environment"]
   cidr_block       = "172.0.0.0/16"
   subnet_ids       = module.subnets.public_subnet_id
-  route_cidr       = ["0.0.0.0/0"]
+  route_cidr       = ["0.0.0.0/0","0.0.0.0/0"]
   route_subnet_ids = module.subnets.public_subnet_id
   network_cidr     = ["0.0.0.0/0"]
 
