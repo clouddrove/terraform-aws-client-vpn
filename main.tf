@@ -175,4 +175,5 @@ resource "aws_ec2_client_vpn_route" "vpn_route" {
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default.*.id)
   destination_cidr_block = element(var.route_cidr, count.index)
   target_vpc_subnet_id   = element(var.route_subnet_ids, count.index)
+  depends_on             = [aws_ec2_client_vpn_network_association.default]
 }
