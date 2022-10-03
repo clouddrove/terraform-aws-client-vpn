@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-aws-client-vpn
+  annotations:
+    github.com/project-slug: 13archit/terraform-aws-client-vpn
+spec:
+  type: other
+  lifecycle: unknown
+  owner: cd-terraform
