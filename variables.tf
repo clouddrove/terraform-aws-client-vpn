@@ -87,3 +87,21 @@ variable "network_cidr" {
   default     = []
   description = "Client Network CIDR"
 }
+
+variable "type" {
+  type        = string
+  default     = "certificate-authentication"
+  description = "The type of client authentication to be used. "
+}
+
+variable "saml_arn" {
+  type        = string
+  default     = ""
+  description = "The ARN of the IAM SAML identity provider. "
+}
+
+variable "self_saml_arn" {
+  type        = string
+  default     = ""
+  description = "The ARN of the IAM SAML identity provider for the self service portal. "
+}

@@ -131,7 +131,9 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   client_cidr_block      = var.cidr_block
 
   authentication_options {
-    type                       = "certificate-authentication"
+    type                            = var.type
+    saml_provider_arn               = var.saml_arn
+    self_service_saml_provider_arn  = var.self_saml_arn
     root_certificate_chain_arn = join("", aws_acm_certificate.root.*.arn)
   }
 
