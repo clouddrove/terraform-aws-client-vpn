@@ -88,6 +88,12 @@ variable "network_cidr" {
   description = "Client Network CIDR"
 }
 
+variable "dns_names" {
+  type        = list(any)
+  default     = ["clouddrove.com"]
+  description = "List of DNS names for which a certificate is being requested."
+}
+
 variable "type" {
   type        = string
   default     = "certificate-authentication"
