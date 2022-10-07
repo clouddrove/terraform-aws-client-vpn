@@ -118,6 +118,7 @@ Here is an example of how you can use this module in your inventory structure:
 | route\_subnet\_ids | Client Route Subnet Ids | `list(any)` | `[]` | no |
 | saml\_arn | The ARN of the IAM SAML identity provider. | `string` | `""` | no |
 | self\_saml\_arn | The ARN of the IAM SAML identity provider for the self service portal. | `string` | `""` | no |
+| split\_tunnel\_enable | Indicates whether split-tunnel is enabled on VPN endpoint. | `bool` | `false` | no |
 | subnet\_ids | Subnet ID to associate clients | `list(string)` | `[]` | no |
 | type | The type of client authentication to be used. | `string` | `"certificate-authentication"` | no |
 
