@@ -104,6 +104,7 @@ Here is an example of how you can use this module in your inventory structure:
 | attributes | Additional attributes (e.g. `1`). | `list(any)` | `[]` | no |
 | cidr\_block | Client VPN CIDR | `string` | `""` | no |
 | delimiter | Delimiter to be used between `organization`, `environment`, `name` and `attributes`. | `string` | `"-"` | no |
+| dns\_names | List of DNS names for which a certificate is being requested. | `list(any)` | <pre>[<br>  "clouddrove.com"<br>]</pre> | no |
 | enabled | Client VPN Name | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
 | label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
@@ -115,7 +116,10 @@ Here is an example of how you can use this module in your inventory structure:
 | repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-aws-client-vpn"` | no |
 | route\_cidr | Client Route CIDR | `list(any)` | `[]` | no |
 | route\_subnet\_ids | Client Route Subnet Ids | `list(any)` | `[]` | no |
+| saml\_arn | The ARN of the IAM SAML identity provider. | `string` | `""` | no |
+| self\_saml\_arn | The ARN of the IAM SAML identity provider for the self service portal. | `string` | `""` | no |
 | subnet\_ids | Subnet ID to associate clients | `list(string)` | `[]` | no |
+| type | The type of client authentication to be used. | `string` | `"certificate-authentication"` | no |
 
 ## Outputs
 
