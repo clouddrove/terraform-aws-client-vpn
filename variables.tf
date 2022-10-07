@@ -88,6 +88,13 @@ variable "network_cidr" {
   description = "Client Network CIDR"
 }
 
+
+variable "split_tunnel_enable" {
+  type        = bool
+  default     = false
+  description = "Indicates whether split-tunnel is enabled on VPN endpoint."
+}
+
 variable "dns_names" {
   type        = list(any)
   default     = ["clouddrove.com"]
@@ -111,3 +118,4 @@ variable "self_saml_arn" {
   default     = ""
   description = "The ARN of the IAM SAML identity provider for the self service portal. "
 }
+
