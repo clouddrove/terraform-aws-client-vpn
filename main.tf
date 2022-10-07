@@ -129,6 +129,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   description            = module.labels.id
   server_certificate_arn = join("", aws_acm_certificate.server.*.arn)
   client_cidr_block      = var.cidr_block
+  split_tunnel           = var.split_tunnel_enable
 
   authentication_options {
     type                       = "certificate-authentication"

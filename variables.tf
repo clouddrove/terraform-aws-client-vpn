@@ -87,3 +87,9 @@ variable "network_cidr" {
   default     = []
   description = "Client Network CIDR"
 }
+
+variable "split_tunnel_enable" {
+  type        = bool
+  default     = false
+  description = "Indicates whether split-tunnel is enabled on VPN endpoint."
+}
