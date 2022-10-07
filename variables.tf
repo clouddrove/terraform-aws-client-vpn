@@ -87,3 +87,27 @@ variable "network_cidr" {
   default     = []
   description = "Client Network CIDR"
 }
+
+variable "dns_names" {
+  type        = list(any)
+  default     = ["clouddrove.com"]
+  description = "List of DNS names for which a certificate is being requested."
+}
+
+variable "type" {
+  type        = string
+  default     = "certificate-authentication"
+  description = "The type of client authentication to be used. "
+}
+
+variable "saml_arn" {
+  type        = string
+  default     = ""
+  description = "The ARN of the IAM SAML identity provider. "
+}
+
+variable "self_saml_arn" {
+  type        = string
+  default     = ""
+  description = "The ARN of the IAM SAML identity provider for the self service portal. "
+}

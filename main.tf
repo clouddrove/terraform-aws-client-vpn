@@ -25,7 +25,7 @@ resource "tls_self_signed_cert" "ca" {
     organization = var.organization_name
   }
 
-  dns_names = ["clouddrove.com"]
+  dns_names = var.dns_names
 
   validity_period_hours = 87600
   is_ca_certificate     = true
@@ -57,7 +57,7 @@ resource "tls_cert_request" "root" {
     organization = var.organization_name
   }
 
-  dns_names = ["clouddrove.com"]
+  dns_names = var.dns_names
 }
 
 resource "tls_locally_signed_cert" "root" {
@@ -98,7 +98,7 @@ resource "tls_cert_request" "server" {
     organization = var.organization_name
   }
 
-  dns_names = ["clouddrove.com"]
+  dns_names = var.dns_names
 }
 
 resource "tls_locally_signed_cert" "server" {
@@ -131,7 +131,9 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   client_cidr_block      = var.cidr_block
 
   authentication_options {
-    type                       = "certificate-authentication"
+    type                            = var.type
+    saml_provider_arn               = var.saml_arn
+    self_service_saml_provider_arn  = var.self_saml_arn
     root_certificate_chain_arn = join("", aws_acm_certificate.root.*.arn)
   }
 
