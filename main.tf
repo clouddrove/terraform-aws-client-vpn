@@ -129,7 +129,9 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   description            = module.labels.id
   server_certificate_arn = join("", aws_acm_certificate.server.*.arn)
   client_cidr_block      = var.cidr_block
+  security_group_ids     = var.security_group_ids
   split_tunnel           = var.split_tunnel_enable
+  vpc_id                 = var.vpc_id
 
   authentication_options {
     type                            = var.type
@@ -150,7 +152,6 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
       authentication_options
     ]
   }
-
 
 }
 
@@ -179,6 +180,15 @@ resource "aws_ec2_client_vpn_authorization_rule" "vpn_auth" {
   target_network_cidr    = element(var.network_cidr, count.index)
   authorize_all_groups   = true
 }
+
+
+resource "aws_ec2_client_vpn_authorization_rule" "vpn_group_auth" {
+  count                  = length(var.group_ids)
+  client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default.*.id)
+  target_network_cidr    = "0.0.0.0/0"
+  access_group_id        = element(var.group_ids, count.index)
+}
+
 
 resource "aws_ec2_client_vpn_route" "vpn_route" {
   count                  = length(var.route_cidr)

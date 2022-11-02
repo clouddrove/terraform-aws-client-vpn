@@ -119,3 +119,21 @@ variable "self_saml_arn" {
   description = "The ARN of the IAM SAML identity provider for the self service portal. "
 }
 
+
+variable "security_group_ids" {
+  type    = list(any)
+  default = []
+  description = "The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC that contains the security groups."
+}
+
+variable "vpc_id" {
+  type        = string
+  default     = ""
+  description = "The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the request, the default security group for the VPC is applied."
+}
+
+variable "group_ids" {
+  type        = list
+  default     = []
+  description = "The ID of the group to which the authorization rule grants access."
+}
