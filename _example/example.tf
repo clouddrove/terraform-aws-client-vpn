@@ -49,4 +49,11 @@ module "vpn" {
   route_subnet_ids    = module.subnets.public_subnet_id
   network_cidr        = ["0.0.0.0/0"]
 
+  type               = "federated-authentication"
+  saml_arn           = var.saml_arn
+  dns_names          = [""]
+  security_group_ids = var.security_group_ids
+  vpc_id             = var.vpc_id
+  group_ids          = var.group_ids 
+
 }
