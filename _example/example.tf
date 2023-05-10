@@ -38,15 +38,21 @@ module "subnets" {
 module "vpn" {
   source = "../"
 
-  name                = "test-vpn"
-  enabled             = true
-  split_tunnel_enable = true
-  environment         = "example"
-  label_order         = ["name", "environment"]
-  cidr_block          = "172.0.0.0/16"
-  subnet_ids          = module.subnets.public_subnet_id
-  route_cidr          = ["0.0.0.0/0", "0.0.0.0/0"]
-  route_subnet_ids    = module.subnets.public_subnet_id
-  network_cidr        = ["0.0.0.0/0"]
+  name                  = "test-vpn"
+  enabled               = true
+  split_tunnel_enable   = true
+  Connection_logging    = true
+  session_timeout_hours = 24
+  environment           = "example"
+  label_order           = ["name", "environment"]
+  cidr_block            = "172.0.0.0/16"
+  vpc_id                = module.vpc.vpc_id
+  subnet_ids            = module.subnets.public_subnet_id
+  route_cidr            = ["0.0.0.0/0", "0.0.0.0/0"]
+  route_subnet_ids      = module.subnets.public_subnet_id
+  network_cidr          = ["0.0.0.0/0"]
+  security_group_ids    = [""]
+  authentication_type   = "federated-authentication"
+  saml_arn              = "arn:aws:iam::924144197303:saml-provider/AWS_SSO_Vpn"
 
 }

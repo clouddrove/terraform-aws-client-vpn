@@ -77,7 +77,7 @@ resource "tls_locally_signed_cert" "root" {
 }
 
 resource "aws_acm_certificate" "root" {
-  count             = var.enabled ? 1 : 0
+  count             = var.certificate_enabled ? 1 : 0
   private_key       = join("", tls_private_key.root.*.private_key_pem)
   certificate_body  = join("", tls_locally_signed_cert.root.*.cert_pem)
   certificate_chain = join("", tls_self_signed_cert.ca.*.cert_pem)
@@ -129,19 +129,21 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   description            = module.labels.id
   server_certificate_arn = join("", aws_acm_certificate.server.*.arn)
   client_cidr_block      = var.cidr_block
-  security_group_ids     = var.security_group_ids
   split_tunnel           = var.split_tunnel_enable
   vpc_id                 = var.vpc_id
+  session_timeout_hours  = var.session_timeout_hours
+  security_group_ids     = concat([aws_security_group.this.id], var.security_group_ids)
+
 
   authentication_options {
-    type                            = var.type
-    saml_provider_arn               = var.saml_arn
-    self_service_saml_provider_arn  = var.self_saml_arn
-    root_certificate_chain_arn = join("", aws_acm_certificate.root.*.arn)
+    type                           = var.authentication_type
+    saml_provider_arn              = var.saml_arn
+    self_service_saml_provider_arn = var.self_saml_arn
+    root_certificate_chain_arn     = join("", aws_acm_certificate.root.*.arn)
   }
 
   connection_log_options {
-    enabled               = true
+    enabled               = var.Connection_logging
     cloudwatch_log_group  = join("", aws_cloudwatch_log_group.vpn.*.name)
     cloudwatch_log_stream = join("", aws_cloudwatch_log_stream.vpn.*.name)
   }
@@ -153,6 +155,27 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
     ]
   }
 
+}
+
+resource "aws_security_group" "this" {
+  name_prefix = var.name
+  vpc_id      = var.vpc_id
+  tags        = module.labels.tags
+
+  ingress {
+    from_port = 0
+    protocol  = -1
+    self      = true
+    to_port   = 0
+
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_ec2_client_vpn_network_association" "default" {

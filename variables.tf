@@ -101,9 +101,9 @@ variable "dns_names" {
   description = "List of DNS names for which a certificate is being requested."
 }
 
-variable "type" {
+variable "authentication_type" {
   type        = string
-  default     = "certificate-authentication"
+  default     = "federated-authentication"
   description = "The type of client authentication to be used. "
 }
 
@@ -119,10 +119,9 @@ variable "self_saml_arn" {
   description = "The ARN of the IAM SAML identity provider for the self service portal. "
 }
 
-
 variable "security_group_ids" {
-  type    = list(any)
-  default = []
+  type        = list(any)
+  default     = []
   description = "The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC that contains the security groups."
 }
 
@@ -133,7 +132,24 @@ variable "vpc_id" {
 }
 
 variable "group_ids" {
-  type        = list
+  type        = list(any)
   default     = []
   description = "The ID of the group to which the authorization rule grants access."
+}
+
+variable "session_timeout_hours" {
+  type        = number
+  default     = 24
+  description = "The maximum session duration is a trigger by which end-users are required to re-authenticate prior to establishing a VPN session. Default value is 24 - Valid values: 8 | 10 | 12 | 24"
+}
+
+variable "certificate_enabled" {
+  type    = bool
+  default = true
+}
+
+variable "Connection_logging" {
+  type        = bool
+  default     = true
+  description = "Connection logging is a feature of AWS client VPN that enables you to capture connection logs for your client VPN endpoint. Before you enable, you must have a CloudWatch Logs log group in your account."
 }
