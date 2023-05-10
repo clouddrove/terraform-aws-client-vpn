@@ -101,13 +101,16 @@ Here is an example of how you can use this module in your inventory structure:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| Connection\_logging | Connection logging is a feature of AWS client VPN that enables you to capture connection logs for your client VPN endpoint. Before you enable, you must have a CloudWatch Logs log group in your account. | `bool` | `true` | no |
 | attributes | Additional attributes (e.g. `1`). | `list(any)` | `[]` | no |
+| authentication\_type | The type of client authentication to be used. | `string` | `"federated-authentication"` | no |
+| certificate\_enabled | n/a | `bool` | `true` | no |
 | cidr\_block | Client VPN CIDR | `string` | `""` | no |
 | delimiter | Delimiter to be used between `organization`, `environment`, `name` and `attributes`. | `string` | `"-"` | no |
 | dns\_names | List of DNS names for which a certificate is being requested. | `list(any)` | <pre>[<br>  "clouddrove.com"<br>]</pre> | no |
 | enabled | Client VPN Name | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
-| group\_ids | The ID of the group to which the authorization rule grants access. | `list` | `[]` | no |
+| group\_ids | The ID of the group to which the authorization rule grants access. | `list(any)` | `[]` | no |
 | label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
 | logs\_retention | Retention in days for CloudWatch Log Group | `number` | `365` | no |
 | managedby | ManagedBy, eg 'CloudDrove'. | `string` | `"hello@clouddrove.com"` | no |
@@ -120,9 +123,9 @@ Here is an example of how you can use this module in your inventory structure:
 | saml\_arn | The ARN of the IAM SAML identity provider. | `string` | `""` | no |
 | security\_group\_ids | The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC that contains the security groups. | `list(any)` | `[]` | no |
 | self\_saml\_arn | The ARN of the IAM SAML identity provider for the self service portal. | `string` | `""` | no |
+| session\_timeout\_hours | The maximum session duration is a trigger by which end-users are required to re-authenticate prior to establishing a VPN session. Default value is 24 - Valid values: 8 \| 10 \| 12 \| 24 | `number` | `24` | no |
 | split\_tunnel\_enable | Indicates whether split-tunnel is enabled on VPN endpoint. | `bool` | `false` | no |
 | subnet\_ids | Subnet ID to associate clients | `list(string)` | `[]` | no |
-| type | The type of client authentication to be used. | `string` | `"certificate-authentication"` | no |
 | vpc\_id | The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the request, the default security group for the VPC is applied. | `string` | `""` | no |
 
 ## Outputs
