@@ -1,14 +1,14 @@
 module "labels" {
   source  = "clouddrove/labels/aws"
-  version = "0.15.0"
+  version = "1.3.0"
 
-  enabled     = var.enabled
   name        = var.name
   environment = var.environment
   managedby   = var.managedby
   label_order = var.label_order
   repository  = var.repository
 }
+
 
 resource "tls_private_key" "ca" {
   count     = var.enabled ? 1 : 0
