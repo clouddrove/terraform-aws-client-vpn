@@ -27,7 +27,7 @@ module "vpc" {
 ##-----------------------------------------------------
 module "subnets" {
   source  = "clouddrove/subnet/aws"
-  version = "1.3.0"
+  version = "2.0.0"
 
   nat_gateway_enabled = true
 
