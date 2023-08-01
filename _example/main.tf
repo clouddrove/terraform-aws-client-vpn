@@ -10,14 +10,12 @@ provider "aws" {
 ##---------------------------------------------------------------------------------------------------------------------------
 module "vpc" {
   source  = "clouddrove/vpc/aws"
-  version = "1.3.1"
+  version = "2.0.0"
 
-  vpc_enabled     = true
   enable_flow_log = false
-
-  name        = "vpc"
-  environment = "example"
-  label_order = ["name", "environment"]
+  name            = "vpc"
+  environment     = "example"
+  label_order     = ["name", "environment"]
 
   cidr_block = "10.0.0.0/16"
 }
@@ -27,7 +25,7 @@ module "vpc" {
 ##-----------------------------------------------------
 module "subnets" {
   source  = "clouddrove/subnet/aws"
-  version = "1.3.0"
+  version = "2.0.0"
 
   nat_gateway_enabled = true
 
@@ -57,7 +55,7 @@ module "vpn" {
   cidr_block          = "172.0.0.0/16"
   subnet_ids          = module.subnets.public_subnet_id
   route_cidr          = ["0.0.0.0/0", "0.0.0.0/0"]
-  security_group_ids = [""]
+  security_group_ids  = [""]
   route_subnet_ids    = module.subnets.public_subnet_id
   network_cidr        = ["0.0.0.0/0"]
 
