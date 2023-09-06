@@ -24,7 +24,7 @@ variable "environment" {
 
 variable "label_order" {
   type        = list(any)
-  default     = []
+  default     = ["name", "environment"]
   description = "Label order, e.g. `name`,`application`."
 }
 
@@ -76,7 +76,6 @@ variable "network_cidr" {
   description = "Client Network CIDR"
 }
 
-
 variable "split_tunnel_enable" {
   type        = bool
   default     = false
@@ -91,7 +90,7 @@ variable "dns_names" {
 
 variable "authentication_type" {
   type        = string
-  default     = "federated-authentication"
+  default     = "certificate-authentication"
   description = "The type of client authentication to be used. "
 }
 
@@ -140,4 +139,78 @@ variable "Connection_logging" {
   type        = bool
   default     = true
   description = "Connection logging is a feature of AWS client VPN that enables you to capture connection logs for your client VPN endpoint. Before you enable, you must have a CloudWatch Logs log group in your account."
+}
+
+variable "vpn_port" {
+  type        = number
+  default     = 443
+  description = "The port number for the Client VPN endpoint. Valid values are 443 and 1194. Default value is 443."
+}
+
+variable "self_service_portal" {
+  type        = string
+  default     = "disabled"
+  description = "Optionally specify whether the VPC Client self-service portal is enabled or disabled. Default is disabled"
+}
+
+variable "rsa_bits" {
+  type        = number
+  default     = 2048
+  description = ""
+}
+
+variable "algorithm" {
+  type        = string
+  default     = "RSA"
+  description = ""
+}
+
+variable "validity_period_hours" {
+  type        = number
+  default     = 87600
+  description = ""
+}
+
+variable "is_ca_certificate" {
+  type        = bool
+  default     = true
+  description = ""
+}
+
+variable "authorize_all_groups" {
+  type        = bool
+  default     = true
+  description = "Indicates whether the authorization rule grants access to all clients. One of access_group_id or authorize_all_groups must be set."
+}
+
+variable "target_network_cidr" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+  description = "List of CIDR ranges from which access is allowed"
+}
+
+variable "security_group_ingress" {
+  type = list(map(string))
+  default = [
+    {
+      from_port = 0
+      protocol  = -1
+      self      = true
+      to_port   = 0
+    }
+  ]
+  description = "List of maps of ingress rules to set on the default security group"
+}
+
+variable "security_group_egress" {
+  type = list(map(string))
+  default = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+  description = "List of maps of egress rules to set on the default security group"
 }

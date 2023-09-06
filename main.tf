@@ -14,7 +14,8 @@ module "labels" {
 
 resource "tls_private_key" "ca" {
   count     = var.enabled ? 1 : 0
-  algorithm = "RSA"
+  algorithm = var.algorithm
+  rsa_bits  = var.rsa_bits
 }
 
 ##-----------------------------------------------------------------------------
@@ -25,14 +26,15 @@ resource "tls_self_signed_cert" "ca" {
   private_key_pem = join("", tls_private_key.ca[*].private_key_pem)
 
   subject {
+
     common_name  = format("%s-ca", module.labels.id)
     organization = var.organization_name
   }
 
   dns_names = var.dns_names
 
-  validity_period_hours = 87600
-  is_ca_certificate     = true
+  validity_period_hours = var.validity_period_hours
+  is_ca_certificate     = var.is_ca_certificate
 
   allowed_uses = [
     "cert_signing",
@@ -51,22 +53,20 @@ resource "aws_acm_certificate" "ca" {
 
 resource "tls_private_key" "root" {
   count     = var.enabled ? 1 : 0
-  algorithm = "RSA"
+  algorithm = var.algorithm
 }
 
 ##-----------------------------------------------------------------------------
 ## Generates a Certificate Signing Request (CSR) in PEM format, which is the typical format used to request a certificate from a certificate authority.
 ##-----------------------------------------------------------------------------
 resource "tls_cert_request" "root" {
-  count = var.enabled ? 1 : 0
-  #key_algorithm   = "RSA"
-  private_key_pem = join("", tls_private_key.root[*].private_key_pem)
+  count           = var.enabled ? 1 : 0
+  private_key_pem = join("", tls_private_key.server[*].private_key_pem)
 
   subject {
     common_name  = format("%s-client", module.labels.id)
     organization = var.organization_name
   }
-
   dns_names = var.dns_names
 }
 
@@ -74,13 +74,11 @@ resource "tls_cert_request" "root" {
 ## Generates a Certificate Signing Request (CSR) in PEM format, which is the typical format used to request a certificate from a certificate authority.
 ##-----------------------------------------------------------------------------
 resource "tls_locally_signed_cert" "root" {
-  count            = var.enabled ? 1 : 0
-  cert_request_pem = join("", tls_cert_request.root[*].cert_request_pem)
-  #ca_key_algorithm   = "RSA"
-  ca_private_key_pem = join("", tls_private_key.ca[*].private_key_pem)
-  ca_cert_pem        = join("", tls_self_signed_cert.ca[*].cert_pem)
-
-  validity_period_hours = 87600
+  count                 = var.enabled ? 1 : 0
+  cert_request_pem      = join("", tls_cert_request.root[*].cert_request_pem)
+  ca_private_key_pem    = join("", tls_private_key.ca[*].private_key_pem)
+  ca_cert_pem           = join("", tls_self_signed_cert.ca[*].cert_pem)
+  validity_period_hours = var.validity_period_hours
 
   allowed_uses = [
     "key_encipherment",
@@ -94,22 +92,21 @@ resource "tls_locally_signed_cert" "root" {
 ##-----------------------------------------------------------------------------
 resource "aws_acm_certificate" "root" {
   count             = var.certificate_enabled ? 1 : 0
-  private_key       = join("", tls_private_key.root[*].private_key_pem)
+  private_key       = join("", tls_private_key.server[*].private_key_pem)
   certificate_body  = join("", tls_locally_signed_cert.root[*].cert_pem)
   certificate_chain = join("", tls_self_signed_cert.ca[*].cert_pem)
 }
 
 resource "tls_private_key" "server" {
   count     = var.enabled ? 1 : 0
-  algorithm = "RSA"
+  algorithm = var.algorithm
 }
 
 ##-----------------------------------------------------------------------------
 ## Generates a Certificate Signing Request (CSR) in PEM format, which is the typical format used to request a certificate from a certificate authority.
 ##-----------------------------------------------------------------------------
 resource "tls_cert_request" "server" {
-  count = var.enabled ? 1 : 0
-  #key_algorithm   = "RSA"
+  count           = var.enabled ? 1 : 0
   private_key_pem = join("", tls_private_key.server[*].private_key_pem)
 
   subject {
@@ -126,11 +123,10 @@ resource "tls_cert_request" "server" {
 resource "tls_locally_signed_cert" "server" {
   count = var.enabled ? 1 : 0
 
-  cert_request_pem   = join("", tls_cert_request.server[*].cert_request_pem)
-  ca_private_key_pem = join("", tls_private_key.ca[*].private_key_pem)
-  ca_cert_pem        = join("", tls_self_signed_cert.ca[*].cert_pem)
-
-  validity_period_hours = 87600
+  cert_request_pem      = join("", tls_cert_request.server[*].cert_request_pem)
+  ca_private_key_pem    = join("", tls_private_key.ca[*].private_key_pem)
+  ca_cert_pem           = join("", tls_self_signed_cert.ca[*].cert_pem)
+  validity_period_hours = var.validity_period_hours
 
   allowed_uses = [
     "key_encipherment",
@@ -161,7 +157,8 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   vpc_id                 = var.vpc_id
   session_timeout_hours  = var.session_timeout_hours
   security_group_ids     = concat([aws_security_group.this.id], var.security_group_ids)
-
+  vpn_port               = var.vpn_port
+  self_service_portal    = var.self_service_portal
 
   authentication_options {
     type                           = var.authentication_type
@@ -182,8 +179,8 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
       authentication_options
     ]
   }
-
 }
+
 ##-----------------------------------------------------------------------------
 ## aws_security_group. Provides a security group resource.
 ##-----------------------------------------------------------------------------
@@ -192,19 +189,24 @@ resource "aws_security_group" "this" {
   vpc_id      = var.vpc_id
   tags        = module.labels.tags
 
-  ingress {
-    from_port = 0
-    protocol  = -1
-    self      = true
-    to_port   = 0
-
+  dynamic "ingress" {
+    for_each = var.security_group_ingress
+    content {
+      self      = lookup(ingress.value, "self", true)
+      from_port = lookup(ingress.value, "from_port", 0)
+      to_port   = lookup(ingress.value, "to_port", 0)
+      protocol  = lookup(ingress.value, "protocol", "-1")
+    }
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+  dynamic "egress" {
+    for_each = var.security_group_egress
+    content {
+      cidr_blocks = compact(split(",", lookup(egress.value, "cidr_blocks", "0.0.0.0/0")))
+      from_port   = lookup(egress.value, "from_port", 0)
+      to_port     = lookup(egress.value, "to_port", 0)
+      protocol    = lookup(egress.value, "protocol", "-1")
+    }
   }
 }
 
@@ -224,8 +226,7 @@ resource "aws_cloudwatch_log_group" "vpn" {
   count             = var.enabled ? 1 : 0
   name              = format("/aws/vpn/%s/logs", module.labels.id)
   retention_in_days = var.logs_retention
-
-  tags = module.labels.tags
+  tags              = module.labels.tags
 }
 
 ##-----------------------------------------------------------------------------
@@ -244,7 +245,7 @@ resource "aws_ec2_client_vpn_authorization_rule" "vpn_auth" {
   count                  = length(var.network_cidr)
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default[*].id)
   target_network_cidr    = element(var.network_cidr, count.index)
-  authorize_all_groups   = true
+  authorize_all_groups   = var.authorize_all_groups
 }
 
 ##-----------------------------------------------------------------------------
@@ -253,7 +254,7 @@ resource "aws_ec2_client_vpn_authorization_rule" "vpn_auth" {
 resource "aws_ec2_client_vpn_authorization_rule" "vpn_group_auth" {
   count                  = length(var.group_ids)
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default[*].id)
-  target_network_cidr    = "0.0.0.0/0"
+  target_network_cidr    = element(var.target_network_cidr, count.index)
   access_group_id        = element(var.group_ids, count.index)
 }
 
