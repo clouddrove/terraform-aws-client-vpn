@@ -195,10 +195,10 @@ resource "aws_security_group" "this" {
   dynamic "ingress" {
     for_each = var.security_group_ingress
     content {
-      self      = lookup(ingress.value, "self", true)
-      from_port = lookup(ingress.value, "from_port", 0)
-      to_port   = lookup(ingress.value, "to_port", 0)
-      protocol  = lookup(ingress.value, "protocol", "-1")
+      self        = lookup(ingress.value, "self", true)
+      from_port   = lookup(ingress.value, "from_port", 0)
+      to_port     = lookup(ingress.value, "to_port", 0)
+      protocol    = lookup(ingress.value, "protocol", "-1")
       description = lookup(ingress.value, "description", "")
     }
   }
