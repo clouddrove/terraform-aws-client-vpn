@@ -143,6 +143,10 @@ resource "aws_acm_certificate" "server" {
   private_key       = join("", tls_private_key.server[*].private_key_pem)
   certificate_body  = join("", tls_locally_signed_cert.server[*].cert_pem)
   certificate_chain = join("", tls_self_signed_cert.ca[*].cert_pem)
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 ##-----------------------------------------------------------------------------

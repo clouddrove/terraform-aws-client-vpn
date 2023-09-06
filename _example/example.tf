@@ -51,8 +51,8 @@ module "vpn" {
   split_tunnel_enable = true
   cidr_block          = "172.0.0.0/16"
   vpc_id              = module.vpc.vpc_id
-  subnet_ids          = module.subnets.private_subnet_id
+  subnet_ids          = module.subnets.public_subnet_id
   route_cidr          = ["0.0.0.0/0", "0.0.0.0/0"]
-  route_subnet_ids    = module.subnets.private_subnet_id
+  route_subnet_ids    = module.subnets.public_subnet_id
   network_cidr        = ["0.0.0.0/0"]
 }
