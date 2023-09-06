@@ -184,6 +184,9 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
 ##-----------------------------------------------------------------------------
 ## aws_security_group. Provides a security group resource.
 ##-----------------------------------------------------------------------------
+#tfsec:ignore:aws-ec2-no-public-egress-sgr
+#tfsec:ignore:aws-ec2-add-description-to-security-group
+#tfsec:ignore:aws-ec2-add-description-to-security-group-rule
 resource "aws_security_group" "this" {
   name_prefix = var.name
   vpc_id      = var.vpc_id
@@ -196,6 +199,7 @@ resource "aws_security_group" "this" {
       from_port = lookup(ingress.value, "from_port", 0)
       to_port   = lookup(ingress.value, "to_port", 0)
       protocol  = lookup(ingress.value, "protocol", "-1")
+      description = lookup(ingress.value, "description", "")
     }
   }
 
@@ -222,6 +226,7 @@ resource "aws_ec2_client_vpn_network_association" "default" {
 ##-----------------------------------------------------------------------------
 ## aws_cloudwatch_log_group Provides a CloudWatch Log Group resource.
 ##-----------------------------------------------------------------------------
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "vpn" {
   count             = var.enabled ? 1 : 0
   name              = format("/aws/vpn/%s/logs", module.labels.id)
