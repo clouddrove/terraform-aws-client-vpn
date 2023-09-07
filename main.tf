@@ -128,13 +128,6 @@ resource "tls_cert_request" "server" {
 ##-----------------------------------------------------------------------------
 ## Generates a Certificate Signing Request (CSR) in PEM format, which is the typical format used to request a certificate from a certificate authority.
 ##-----------------------------------------------------------------------------
-#The TLS provider provides utilities for working with Transport Layer Security keys and certificates. It provides resources that allow private keys, certificates and certificate requests to be created as part of a Terraform deployment.
-provider "tls" {
-  proxy {
-    from_env = true
-  }
-}
-
 resource "tls_locally_signed_cert" "server" {
   count = var.enabled ? 1 : 0
 
