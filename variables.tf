@@ -156,25 +156,25 @@ variable "self_service_portal" {
 variable "rsa_bits" {
   type        = number
   default     = 2048
-  description = ""
+  description = "When algorithm is RSA, the size of the generated RSA key, in bits (default: 2048)."
 }
 
 variable "algorithm" {
   type        = string
   default     = "RSA"
-  description = ""
+  description = "Name of the algorithm to use when generating the private key. Currently-supported values are: RSA, ECDSA, ED25519."
 }
 
 variable "validity_period_hours" {
   type        = number
   default     = 87600
-  description = ""
+  description = "Number of hours, after initial issuing, that the certificate will remain valid for."
 }
 
 variable "is_ca_certificate" {
   type        = bool
   default     = true
-  description = ""
+  description = "Is the generated certificate representing a Certificate Authority (CA)."
 }
 
 variable "authorize_all_groups" {

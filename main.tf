@@ -49,6 +49,10 @@ resource "aws_acm_certificate" "ca" {
   count            = var.enabled ? 1 : 0
   private_key      = join("", tls_private_key.ca[*].private_key_pem)
   certificate_body = join("", tls_self_signed_cert.ca[*].cert_pem)
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "tls_private_key" "root" {
@@ -95,6 +99,10 @@ resource "aws_acm_certificate" "root" {
   private_key       = join("", tls_private_key.server[*].private_key_pem)
   certificate_body  = join("", tls_locally_signed_cert.root[*].cert_pem)
   certificate_chain = join("", tls_self_signed_cert.ca[*].cert_pem)
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "tls_private_key" "server" {
@@ -120,6 +128,13 @@ resource "tls_cert_request" "server" {
 ##-----------------------------------------------------------------------------
 ## Generates a Certificate Signing Request (CSR) in PEM format, which is the typical format used to request a certificate from a certificate authority.
 ##-----------------------------------------------------------------------------
+#The TLS provider provides utilities for working with Transport Layer Security keys and certificates. It provides resources that allow private keys, certificates and certificate requests to be created as part of a Terraform deployment.
+provider "tls" {
+  proxy {
+    from_env = true
+  }
+}
+
 resource "tls_locally_signed_cert" "server" {
   count = var.enabled ? 1 : 0
 
