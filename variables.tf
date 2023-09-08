@@ -214,3 +214,9 @@ variable "security_group_egress" {
   ]
   description = "List of maps of egress rules to set on the default security group"
 }
+
+variable "enable_security_group" {
+  type        = bool
+  default     = true
+  description = "create for security group module this value is enable 'true'"
+}

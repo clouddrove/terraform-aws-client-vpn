@@ -168,7 +168,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   split_tunnel           = var.split_tunnel_enable
   vpc_id                 = var.vpc_id
   session_timeout_hours  = var.session_timeout_hours
-  security_group_ids     = concat([aws_security_group.this.id], var.security_group_ids)
+  security_group_ids     = concat([aws_security_group.this[0].id], var.security_group_ids)
   vpn_port               = var.vpn_port
   self_service_portal    = var.self_service_portal
 
@@ -200,6 +200,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
 #tfsec:ignore:aws-ec2-add-description-to-security-group
 #tfsec:ignore:aws-ec2-add-description-to-security-group-rule
 resource "aws_security_group" "this" {
+  count       = var.enabled && var.enable_security_group ? 1 : 0
   name_prefix = var.name
   vpc_id      = var.vpc_id
   tags        = module.labels.tags
