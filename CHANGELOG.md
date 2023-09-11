@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2023-09-11
+### :sparkles: New Features
+- [`25a49a8`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/25a49a82ce501af6a72158b0a537c9b2c7e4c3ad) - add deepsource & added assignees,reviewer in dependabot *(commit by [@Tanveer143s](https://github.com/Tanveer143s))*
+- [`001d4bd`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/001d4bd622b42b966af111ec89d959ce599c51d7) - update new github-action and subnet vpc tag *(commit by [@theprashantyadav](https://github.com/theprashantyadav))*
+
+### :bug: Bug Fixes
+- [`154b37d`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/154b37dbf9d0ecf032995fa2d26eba4a690e22a0) - added versions.tf and updated vpc tag *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`608f7e7`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/608f7e775ffa65faa71668877252ee865020db37) - add security group module count *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+
+
 ## [1.0.5] - 2022-11-02
 ### :bug: Bug Fixes
 - [`0ed2c50`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/0ed2c503a1165c18818967420f7e0c9d2abafe50) - update workflows
@@ -41,3 +51,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.3]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.3...master
 [1.0.4]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.4...master
 [1.0.5]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...master
+[1.0.6]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...1.0.6
