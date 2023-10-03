@@ -95,7 +95,7 @@ resource "tls_locally_signed_cert" "root" {
 ## aws_acm_certificate. The ACM certificate resource allows requesting and management of certificates from the Amazon Certificate Manager..
 ##-----------------------------------------------------------------------------
 resource "aws_acm_certificate" "root" {
-  count             = var.certificate_enabled ? 1 : 0
+  count             = var.enabled && var.certificate_enabled ? 1 : 0
   private_key       = join("", tls_private_key.server[*].private_key_pem)
   certificate_body  = join("", tls_locally_signed_cert.root[*].cert_pem)
   certificate_chain = join("", tls_self_signed_cert.ca[*].cert_pem)
@@ -231,7 +231,7 @@ resource "aws_security_group" "this" {
 ## Provides network associations for AWS Client VPN endpoints.
 ##-----------------------------------------------------------------------------
 resource "aws_ec2_client_vpn_network_association" "default" {
-  count                  = length(var.subnet_ids)
+  count                  = var.enabled ? length(var.subnet_ids) : 0
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default[*].id)
   subnet_id              = element(var.subnet_ids, count.index)
 }
@@ -260,7 +260,7 @@ resource "aws_cloudwatch_log_stream" "vpn" {
 ## Provides authorization rules for AWS Client VPN endpoints.
 ##-----------------------------------------------------------------------------
 resource "aws_ec2_client_vpn_authorization_rule" "vpn_auth" {
-  count                  = length(var.network_cidr)
+  count                  = var.enabled ? length(var.network_cidr) : 0
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default[*].id)
   target_network_cidr    = element(var.network_cidr, count.index)
   authorize_all_groups   = var.authorize_all_groups
@@ -270,7 +270,7 @@ resource "aws_ec2_client_vpn_authorization_rule" "vpn_auth" {
 ## Provides authorization rules for AWS Client VPN endpoints.
 ##-----------------------------------------------------------------------------
 resource "aws_ec2_client_vpn_authorization_rule" "vpn_group_auth" {
-  count                  = length(var.group_ids)
+  count                  = var.enabled ? length(var.group_ids) : 0
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default[*].id)
   target_network_cidr    = element(var.target_network_cidr, count.index)
   access_group_id        = element(var.group_ids, count.index)
@@ -280,7 +280,7 @@ resource "aws_ec2_client_vpn_authorization_rule" "vpn_group_auth" {
 ## Provides additional routes for AWS Client VPN endpoints.
 ##-----------------------------------------------------------------------------
 resource "aws_ec2_client_vpn_route" "vpn_route" {
-  count                  = length(var.route_cidr)
+  count                  = var.enabled ? length(var.route_cidr) : 0
   client_vpn_endpoint_id = join("", aws_ec2_client_vpn_endpoint.default[*].id)
   destination_cidr_block = element(var.route_cidr, count.index)
   target_vpc_subnet_id   = element(var.route_subnet_ids, count.index)
