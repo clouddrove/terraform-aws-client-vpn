@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.7] - 2023-10-03
+### :bug: Bug Fixes
+- [`46cd712`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/46cd7123404d4e817ee6b3f44e719c90dadb8f82) - enable attribute for all resources *(PR [#22](https://github.com/clouddrove/terraform-aws-client-vpn/pull/22) by [@h1manshu98](https://github.com/h1manshu98))*
+
+### :memo: Documentation Changes
+- [`3e4cb09`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/3e4cb097c3df86354e032318b7c97bbf646025f9) - update CHANGELOG.md for 1.0.6 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.0.6] - 2023-09-11
 ### :sparkles: New Features
 - [`25a49a8`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/25a49a82ce501af6a72158b0a537c9b2c7e4c3ad) - add deepsource & added assignees,reviewer in dependabot *(commit by [@Tanveer143s](https://github.com/Tanveer143s))*
@@ -52,3 +60,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.4]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.4...master
 [1.0.5]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...master
 [1.0.6]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...1.0.6
+[1.0.7]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.6...1.0.7
