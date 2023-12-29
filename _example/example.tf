@@ -27,7 +27,7 @@ module "vpc" {
 #tfsec:ignore:aws-ec2-no-public-ingress-acl
 module "subnets" {
   source  = "clouddrove/subnet/aws"
-  version = "2.0.0"
+  version = "2.0.1"
 
   nat_gateway_enabled = true
   name                = local.name
