@@ -171,6 +171,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   security_group_ids     = concat([aws_security_group.this[0].id], var.security_group_ids)
   vpn_port               = var.vpn_port
   self_service_portal    = var.self_service_portal
+  dns_servers            = var.dns_servers
 
   authentication_options {
     type                           = var.authentication_type

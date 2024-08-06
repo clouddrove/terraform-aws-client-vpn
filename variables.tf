@@ -220,3 +220,10 @@ variable "enable_security_group" {
   default     = true
   description = "create for security group module this value is enable 'true'"
 }
+
+variable "dns_servers" {
+  type        = list(string)
+  default     = null
+  description = "(Optional) Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address of the connecting device is used."
+}
+
