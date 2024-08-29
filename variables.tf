@@ -226,4 +226,3 @@ variable "dns_servers" {
   default     = null
   description = "(Optional) Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address of the connecting device is used."
 }
-
