@@ -9,7 +9,7 @@
 | certificate\_enabled | n/a | `bool` | `true` | no |
 | cidr\_block | Client VPN CIDR | `string` | `""` | no |
 | dns\_names | List of DNS names for which a certificate is being requested. | `list(any)` | <pre>[<br>  "clouddrove.com"<br>]</pre> | no |
-| dns\_servers | Information about the DNS servers to be used for DNS resolution | `list(string)` | n/a | yes |
+| dns\_servers | (Optional) Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address of the connecting device is used. | `list(string)` | `null` | no |
 | enable\_security\_group | create for security group module this value is enable 'true' | `bool` | `true` | no |
 | enabled | Client VPN Name | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
