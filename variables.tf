@@ -222,10 +222,7 @@ variable "enable_security_group" {
 }
 
 variable "dns_servers" {
-  type = list(string)
-  validation {
-    condition = length(dns_servers) > 2
-    error_message = "A Client VPN endpoint can have up to two DNS servers"
-  }
-  description = "Information about the DNS servers to be used for DNS resolution"
+  type        = list(string)
+  default     = null
+  description = "(Optional) Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address of the connecting device is used."
 }
