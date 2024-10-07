@@ -50,4 +50,3 @@
 | vpn\_arn | The ARN of the Client VPN endpoint. |
 | vpn\_dns\_name | VPN DNS name |
 | vpn\_id | The ID of the Client VPN endpoint. |
-
