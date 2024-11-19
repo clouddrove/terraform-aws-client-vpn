@@ -135,7 +135,7 @@ variable "certificate_enabled" {
   default = true
 }
 
-variable "Connection_logging" {
+variable "connection_logging" {
   type        = bool
   default     = true
   description = "Connection logging is a feature of AWS client VPN that enables you to capture connection logs for your client VPN endpoint. Before you enable, you must have a CloudWatch Logs log group in your account."
