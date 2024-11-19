@@ -2,12 +2,12 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| Connection\_logging | Connection logging is a feature of AWS client VPN that enables you to capture connection logs for your client VPN endpoint. Before you enable, you must have a CloudWatch Logs log group in your account. | `bool` | `true` | no |
 | algorithm | Name of the algorithm to use when generating the private key. Currently-supported values are: RSA, ECDSA, ED25519. | `string` | `"RSA"` | no |
 | authentication\_type | The type of client authentication to be used. | `string` | `"certificate-authentication"` | no |
 | authorize\_all\_groups | Indicates whether the authorization rule grants access to all clients. One of access\_group\_id or authorize\_all\_groups must be set. | `bool` | `true` | no |
 | certificate\_enabled | n/a | `bool` | `true` | no |
 | cidr\_block | Client VPN CIDR | `string` | `""` | no |
+| connection\_logging | Connection logging is a feature of AWS client VPN that enables you to capture connection logs for your client VPN endpoint. Before you enable, you must have a CloudWatch Logs log group in your account. | `bool` | `true` | no |
 | dns\_names | List of DNS names for which a certificate is being requested. | `list(any)` | <pre>[<br>  "clouddrove.com"<br>]</pre> | no |
 | dns\_servers | (Optional) Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address of the connecting device is used. | `list(string)` | `null` | no |
 | enable\_security\_group | create for security group module this value is enable 'true' | `bool` | `true` | no |
