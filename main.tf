@@ -181,7 +181,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   }
 
   connection_log_options {
-    enabled               = var.Connection_logging
+    enabled               = var.connection_logging
     cloudwatch_log_group  = join("", aws_cloudwatch_log_group.vpn[*].name)
     cloudwatch_log_stream = join("", aws_cloudwatch_log_stream.vpn[*].name)
   }
@@ -242,7 +242,7 @@ resource "aws_ec2_client_vpn_network_association" "default" {
 ##-----------------------------------------------------------------------------
 #tfsec:ignore:aws-cloudwatch-log-group-customer-key
 resource "aws_cloudwatch_log_group" "vpn" {
-  count             = var.enabled ? 1 : 0
+  count             = var.enabled && var.connection_logging ? 1 : 0
   name              = format("/aws/vpn/%s/logs", module.labels.id)
   retention_in_days = var.logs_retention
   tags              = module.labels.tags
@@ -252,7 +252,7 @@ resource "aws_cloudwatch_log_group" "vpn" {
 ## A log stream is a sequence of log events that share the same source. Each separate source of logs in CloudWatch Logs makes up a separate log stream.
 ##-----------------------------------------------------------------------------
 resource "aws_cloudwatch_log_stream" "vpn" {
-  count          = var.enabled ? 1 : 0
+  count          = var.enabled && var.connection_logging ? 1 : 0
   name           = format("%s-usage", module.labels.id)
   log_group_name = join("", aws_cloudwatch_log_group.vpn[*].name)
 }
