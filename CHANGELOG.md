@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2024-11-19
+### :sparkles: New Features
+- [`2503c71`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/2503c7185b1be07292a0aa6c21a2b0ee8856760a) - Add automerge github shared workflow *(PR [#29](https://github.com/clouddrove/terraform-aws-client-vpn/pull/29) by [@vaibhav7797](https://github.com/vaibhav7797))*
+- [`157090d`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/157090d9fa98621648a657cf1a6b3890211557ff) - update tf.checks step name and tf and aws version *(PR [#31](https://github.com/clouddrove/terraform-aws-client-vpn/pull/31) by [@theprashantyadav](https://github.com/theprashantyadav))*
+- [`034882f`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/034882f4cde5df144ebeea7364be6f0509b6837a) - updated example path and readme paramters *(commit by [@VishwajitNagulkar](https://github.com/VishwajitNagulkar))*
+- [`bb73794`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/bb73794bb657e16e3f5c8e3e89999f4fa0847d57) - expose dns servers as module variable *(PR [#42](https://github.com/clouddrove/terraform-aws-client-vpn/pull/42) by [@pointsevenfive](https://github.com/pointsevenfive))*
+
+### :bug: Bug Fixes
+- [`bae6b46`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/bae6b46935b1809f552e64bba905ffb10b80d8d0) - *****: Add dns_servers as configuration option *(PR [#37](https://github.com/clouddrove/terraform-aws-client-vpn/pull/37) by [@Moep90](https://github.com/Moep90))*
+
+### :memo: Documentation Changes
+- [`759a026`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/759a026996a2caf355150c40b99a1c3cbf0364be) - update CHANGELOG.md for 1.0.7 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.0.7] - 2023-10-03
 ### :bug: Bug Fixes
 - [`46cd712`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/46cd7123404d4e817ee6b3f44e719c90dadb8f82) - enable attribute for all resources *(PR [#22](https://github.com/clouddrove/terraform-aws-client-vpn/pull/22) by [@h1manshu98](https://github.com/h1manshu98))*
@@ -61,3 +75,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.5]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...master
 [1.0.6]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...1.0.6
 [1.0.7]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.6...1.0.7
+[1.0.8]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.7...1.0.8
