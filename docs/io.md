@@ -2,6 +2,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| active\_directory\_id | The ID of AWS AD to be used with directory-service-authentication authentication type. | `string` | `""` | no |
 | algorithm | Name of the algorithm to use when generating the private key. Currently-supported values are: RSA, ECDSA, ED25519. | `string` | `"RSA"` | no |
 | authentication\_type | The type of client authentication to be used. | `string` | `"certificate-authentication"` | no |
 | authorize\_all\_groups | Indicates whether the authorization rule grants access to all clients. One of access\_group\_id or authorize\_all\_groups must be set. | `bool` | `true` | no |
