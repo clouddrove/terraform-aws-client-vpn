@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.9] - 2024-11-20
+### :memo: Documentation Changes
+- [`f37b2dc`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/f37b2dcc7e24430f237aeeee3699a295daf366ec) - update CHANGELOG.md for 1.0.8 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.0.8] - 2024-11-19
 ### :sparkles: New Features
 - [`2503c71`](https://github.com/clouddrove/terraform-aws-client-vpn/commit/2503c7185b1be07292a0aa6c21a2b0ee8856760a) - Add automerge github shared workflow *(PR [#29](https://github.com/clouddrove/terraform-aws-client-vpn/pull/29) by [@vaibhav7797](https://github.com/vaibhav7797))*
@@ -76,3 +81,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.6]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.5...1.0.6
 [1.0.7]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.6...1.0.7
 [1.0.8]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.7...1.0.8
+[1.0.9]: https://github.com/clouddrove/terraform-aws-client-vpn/compare/1.0.8...1.0.9
