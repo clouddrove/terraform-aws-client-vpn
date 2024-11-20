@@ -91,7 +91,13 @@ variable "dns_names" {
 variable "authentication_type" {
   type        = string
   default     = "certificate-authentication"
-  description = "The type of client authentication to be used. "
+  description = "The type of client authentication to be used."
+}
+
+variable "active_directory_id" {
+  type        = string
+  default     = ""
+  description = "The ID of AWS AD to be used with directory-service-authentication authentication type."
 }
 
 variable "saml_arn" {

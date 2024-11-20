@@ -178,6 +178,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
     saml_provider_arn              = var.saml_arn
     self_service_saml_provider_arn = var.self_saml_arn
     root_certificate_chain_arn     = join("", aws_acm_certificate.root[*].arn)
+    active_directory_id            = var.authentication_type == "directory-service-authentication" ? var.active_directory_id : null
   }
 
   connection_log_options {
@@ -187,11 +188,6 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
   }
 
   tags = module.labels.tags
-  lifecycle {
-    ignore_changes = [
-      authentication_options
-    ]
-  }
 }
 
 ##-----------------------------------------------------------------------------
