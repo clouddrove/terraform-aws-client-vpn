@@ -177,7 +177,7 @@ resource "aws_ec2_client_vpn_endpoint" "default" {
     type                           = var.authentication_type
     saml_provider_arn              = var.saml_arn
     self_service_saml_provider_arn = var.self_saml_arn
-    root_certificate_chain_arn     = join("", aws_acm_certificate.root[*].arn)
+    root_certificate_chain_arn     = var.authentication_type == "certificate-authentication" ? join("", aws_acm_certificate.root[*].arn) : null
     active_directory_id            = var.authentication_type == "directory-service-authentication" ? var.active_directory_id : null
   }
 
