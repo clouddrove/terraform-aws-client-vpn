@@ -14,6 +14,6 @@ terraform {
   }
 
   provider_meta "aws" {
-    module_name = "clouddrove/terraform-aws-client-vpn"
+    user_agent = ["github.com/clouddrove/terraform-aws-client-vpn"]
   }
 }
